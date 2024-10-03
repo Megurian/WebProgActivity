@@ -66,6 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $reasonErr = 'Reason is required';
     }
 
+    if($status == 'out' && $_SESSION['account']['is_staff']){
+        $statusErr = 'Staff is not allowed to stock out products';
+    }
+
     if (empty($quantityErr) && empty($statusErr) && empty($reasonErr)) {
         $stocksObj->product_id = $product_id;
         $stocksObj->quantity = $quantity;
