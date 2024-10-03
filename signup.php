@@ -98,6 +98,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
     <link rel="stylesheet" href="https://classless.de/classless.css">
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <form action="" method="post">

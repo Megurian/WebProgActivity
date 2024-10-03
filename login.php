@@ -39,6 +39,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://classless.de/classless.css">
     <style>
         .error{
             color: red;
@@ -48,6 +49,14 @@
 <body>
     <form action="login.php" method="post">
         <h2>Login</h2>
+        <?php
+        if (!empty($loginErr)){
+        ?>
+            <p class="error"><?= $loginErr ?></p>
+        <?php
+        }
+        ?>
+        <hr><br>
         <label for="username">Username/Email</label>
         <br>
         <input type="text" name="username" id="username">
@@ -57,13 +66,6 @@
         <input type="password" name="password" id="password">
         <br>
         <input type="submit" value="Login" name="login">
-        <?php
-        if (!empty($loginErr)){
-        ?>
-            <p class="error"><?= $loginErr ?></p>
-        <?php
-        }
-        ?>
     </form>
     <div>
         <p>No account yet?</p><a href="signup.php">Sign-up here</a>
