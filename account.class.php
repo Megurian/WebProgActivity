@@ -4,13 +4,13 @@ require_once 'database.php';
 
 class Account{
     public $id = '';
-    public $first_name = 'Staff';
-    public $last_name = '01';
-    public $username = 'staff';
-    public $password = 'staff';
-    public $role = 'staff';
-    public $is_staff = true;
-    public $is_admin = false;
+    public $first_name = '';
+    public $last_name = '';
+    public $username = '';
+    public $password = '';
+    public $role = '';
+    public $is_staff = null;
+    public $is_admin = null;
 
 
     protected $db;
@@ -83,6 +83,6 @@ class Account{
     }
 }
 
-// $obj = new Account();
+/* $obj = new Account();
 
-// $obj->add();
+$obj->add(); */
