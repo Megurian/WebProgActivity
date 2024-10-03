@@ -26,8 +26,7 @@ class Account{
         $query->bindParam(':first_name', $this->first_name);
         $query->bindParam(':last_name', $this->last_name);
         $query->bindParam(':username', $this->username);
-        $hashpassword = password_hash($this->password, PASSWORD_DEFAULT);
-        $query->bindParam(':password', $hashpassword);
+        $query->bindParam(':password', $this->password);
         $query->bindParam(':role', $this->role);
         $query->bindParam(':is_staff', $this->is_staff);
         $query->bindParam(':is_admin', $this->is_admin);

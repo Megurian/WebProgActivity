@@ -9,7 +9,7 @@
     $loginErr = '';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $username = clean_input(($_POST['username']));
+        $username = clean_input($_POST['username']);
         $password = clean_input($_POST['password']);
 
         if($accountObj->login($username, $password)){
@@ -68,7 +68,7 @@
         <input type="submit" value="Login" name="login">
     </form>
     <div>
-        <p>No account yet?</p><a href="signup.php">Sign-up here</a>
+        <p>No account yet? <a href="signup.php">Sign-up here</a></p>
     </div>
 </body>
 </html>
