@@ -15,7 +15,11 @@
         if($accountObj->login($username, $password)){
             $data = $accountObj->fetch($username);
             $_SESSION['account'] = $data;
-            header('location: dashboard.php');
+            if($_SESSION['account']['is_staff'] == false){
+                header('location: customer.php');
+            } else {
+                header('location: dashboard.php');
+            }
         }else{
             $loginErr = 'Invalid username/password';
         }
@@ -23,6 +27,8 @@
         if(isset($_SESSION['account'])){
             if($_SESSION['account']['is_staff']){
                 header('location: dashboard.php');
+            } elseif($_SESSION['account']['is_staff'] == false){
+                header('location: customer.php');
             }
         }
     }
@@ -59,5 +65,8 @@
         }
         ?>
     </form>
+    <div>
+        <p>No account yet?</p><a href="signup.php">Sign-up here</a>
+    </div>
 </body>
 </html>

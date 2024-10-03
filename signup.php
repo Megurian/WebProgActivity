@@ -66,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $accountObj->first_name = $first_name;
         $accountObj->last_name = $last_name;
         $accountObj->password = $encrytedPassword;
-        $accountObj->role = 'Customer';
+        $accountObj->role = 'customer';
         $accountObj->is_staff = false;
         $accountObj->is_admin = false;
             
@@ -77,6 +77,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+}else{
+    session_start();
+    if(isset($_SESSION['account'])){
+        if(isset($_SESSION['account'])){
+            if($_SESSION['account']['is_staff']){
+                header('location: dashboard.php');
+            } elseif($_SESSION['account']['is_staff'] == false){
+                header('location: customer.php');
+            }
+        }
+    }
 }
 ?>
 
