@@ -9,20 +9,26 @@
     $loginErr = '';
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $username = clean_input(($_POST['username']));
+        $username = clean_input($_POST['username']);
         $password = clean_input($_POST['password']);
 
         if($accountObj->login($username, $password)){
             $data = $accountObj->fetch($username);
             $_SESSION['account'] = $data;
-            header('location: ../admin/dashboard.php');
+            if($_SESSION['account']['is_staff'] == false){
+                header('location: customer.php');
+            } else {
+                header('location: dashboard.php');
+            }
         }else{
             $loginErr = 'Invalid username/password';
         }
     }else{
         if(isset($_SESSION['account'])){
             if($_SESSION['account']['is_staff']){
-                header('location: ../admin/dashboard.php');
+                header('location: dashboard.php');
+            } elseif($_SESSION['account']['is_staff'] == false){
+                header('location: customer.php');
             }
         }
     }
@@ -33,6 +39,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://classless.de/classless.css">
     <style>
         .error{
             color: red;
@@ -42,6 +49,14 @@
 <body>
     <form action="login.php" method="post">
         <h2>Login</h2>
+        <?php
+        if (!empty($loginErr)){
+        ?>
+            <p class="error"><?= $loginErr ?></p>
+        <?php
+        }
+        ?>
+        <hr><br>
         <label for="username">Username/Email</label>
         <br>
         <input type="text" name="username" id="username">
@@ -51,13 +66,9 @@
         <input type="password" name="password" id="password">
         <br>
         <input type="submit" value="Login" name="login">
-        <?php
-        if (!empty($loginErr)){
-        ?>
-            <p class="error"><?= $loginErr ?></p>
-        <?php
-        }
-        ?>
     </form>
+    <div>
+        <p>No account yet? <a href="signup.php">Sign-up here</a></p>
+    </div>
 </body>
 </html>

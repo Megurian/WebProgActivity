@@ -8,9 +8,9 @@ class Account{
     public $last_name = '';
     public $username = '';
     public $password = '';
-    public $role = 'staff';
-    public $is_staff = true;
-    public $is_admin = false;
+    public $role = '';
+    public $is_staff = null;
+    public $is_admin = null;
 
 
     protected $db;
@@ -26,8 +26,7 @@ class Account{
         $query->bindParam(':first_name', $this->first_name);
         $query->bindParam(':last_name', $this->last_name);
         $query->bindParam(':username', $this->username);
-        $hashpassword = password_hash($this->password, PASSWORD_DEFAULT);
-        $query->bindParam(':password', $hashpassword);
+        $query->bindParam(':password', $this->password);
         $query->bindParam(':role', $this->role);
         $query->bindParam(':is_staff', $this->is_staff);
         $query->bindParam(':is_admin', $this->is_admin);
@@ -83,6 +82,6 @@ class Account{
     }
 }
 
-// $obj = new Account();
+/* $obj = new Account();
 
-// $obj->add();
+$obj->add(); */
