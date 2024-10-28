@@ -101,12 +101,93 @@ $(document).ready(function(){
 
                 $('#add-product').on('click', function(e){
                     e.preventDefault()
-                    addProduct()
+                    addAccount()
                 })
 
             }
         })
     }
+
+    function addAccount(){
+        $.ajax({
+            type: 'GET',
+            url: '../accounts/add-account.html',
+            dataType: 'html',
+            success: function(view){
+                $('.modal-container').html(view)
+                $('#modal-add-product').modal('show')
+
+                fetchCategories()
+
+                $('#form-add-product').on('submit', function(e){
+                    e.preventDefault()
+                    saveAccount()
+                })
+            }
+        })
+    }
+
+    function saveAccount() {
+        let form = new FormData($("#form-add-account")[0]);
+        $.ajax({
+            type: "POST",
+            url: "../accounts/add-account.php",
+            data: form,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.status === "error") {
+                if (response.usernameErr) {
+                    $("#username").addClass("is-invalid");
+                    $("#username")
+                    .next(".invalid-feedback")
+                    .text(response.usernameErr)
+                    .show();
+                } else {
+                    $("#username").removeClass("is-invalid");
+                }
+                if (response.first_nameErr) {
+                    $("#first_name").addClass("is-invalid");
+                    $("#first_name")
+                    .next(".invalid-feedback")
+                    .text(response.first_nameErr)
+                    .show();
+                } else {
+                    $("#first_name").removeClass("is-invalid");
+                }
+                if (response.last_nameErr) {
+                    $("#last_name").addClass("is-invalid");
+                    $("#last_name")
+                    .next(".invalid-feedback")
+                    .text(response.last_nameErr)
+                    .show();
+                } else {
+                    $("#last_name").removeClass("is-invalid");
+                }
+                if (response.roleErr) {
+                    $("#role").addClass("is-invalid");
+                    $("#role").next(".invalid-feedback").text(response.roleErr).show();
+                } else {
+                    $("#role").removeClass("is-invalid");
+                }
+                if (response.passwordErr) {
+                    $("#password").addClass("is-invalid");
+                    $("#password")
+                    .next(".invalid-feedback")
+                    .text(response.passwordErr)
+                    .show();
+                } else {
+                    $("#password").removeClass("is-invalid");
+                }
+                } else if (response.status === "success") {
+                $("#modal-add-account").modal("hide");
+                $("#form-add-account")[0].reset();
+                viewAccounts();
+                }
+            },
+        });
+      }
 
     function viewProducts(){
         $.ajax({
