@@ -80,6 +80,20 @@ class Account{
 
         return $data;
     }
+
+    function showAll($keyword = ''){
+        $sql = "SELECT * FROM account 
+                WHERE first_name LIKE CONCAT('%', :keyword, '%') OR last_name LIKE CONCAT('%', :keyword, '%') OR username LIKE CONCAT('%', :keyword, '%') 
+                ORDER BY first_name ASC;";
+                
+        $query = $this->db->connect()->prepare($sql);
+        $query->bindParam(':keyword', $keyword);
+        $data = null;
+        if ($query->execute()) {
+            $data = $query->fetchAll();
+        }
+        return $data;
+    }
 }
 
 /* $obj = new Account();
