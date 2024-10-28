@@ -101,7 +101,7 @@ $(document).ready(function(){
 
                 $('#add-product').on('click', function(e){
                     e.preventDefault()
-                    addAccount()
+                    addAccount();
                 })
 
             }
@@ -115,11 +115,11 @@ $(document).ready(function(){
             dataType: 'html',
             success: function(view){
                 $('.modal-container').html(view)
-                $('#modal-add-product').modal('show')
+                $('#modal-add-account').modal('show')
 
                 fetchCategories()
 
-                $('#form-add-product').on('submit', function(e){
+                $('#form-add-account').on('submit', function(e){
                     e.preventDefault()
                     saveAccount()
                 })
@@ -181,11 +181,11 @@ $(document).ready(function(){
                     $("#password").removeClass("is-invalid");
                 }
                 } else if (response.status === "success") {
-                $("#modal-add-account").modal("hide");
-                $("#form-add-account")[0].reset();
-                viewAccounts();
+                    $("#modal-add-account").modal("hide");
+                    $("#form-add-account")[0].reset();
+                    viewAccounts();
                 }
-            },
+            }
         });
       }
 

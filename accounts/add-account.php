@@ -1,15 +1,20 @@
 <?php
+
 require_once('../tools/functions.php');
 require_once('../classes/account.class.php');
+
 $username = $first_name = $last_name = $password = $role = '';
 $usernameErr = $first_nameErr = $last_nameErr = $passwordErr = $roleErr = '';
+
 $accountObj = new Account();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = clean_input($_POST['username']);
     $first_name = clean_input($_POST['first_name']);
     $last_name = clean_input($_POST['last_name']);
     $password = clean_input($_POST['password']);
     $role = clean_input($_POST['role']);
+    
     if (empty($username)) {
         $usernameErr = 'Username is required.';
     } else if ($accountObj->usernameExist($username, 0)) {
