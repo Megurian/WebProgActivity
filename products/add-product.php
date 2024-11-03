@@ -8,6 +8,7 @@ $codeErr = $nameErr = $categoryErr = $priceErr = $imageErr = '';
 
 $uploadDir = '../uploads/';
 $allowedType = ['jpg', 'jpeg', 'png'];
+$maxImageSize = 5 * 1024 * 1024;
 
 $productObj = new ProductImage();
 
@@ -19,6 +20,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $price = clean_input($_POST['price']);
     $image = $_FILES['product_image']['name'];
     $imageTemp = $_FILES['product_image']['tmp_name'];
+    $imageSize = $_FILES['product_image']['size'];
+
+    if($imageSize > $maxImageSize){
+        $imageErr = 'Image size uploaded exceeds 5MB';
+    }
 
     if(empty($code)){
         $codeErr = 'Product Code is required.';
